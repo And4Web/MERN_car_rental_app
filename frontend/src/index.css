@@ -68,9 +68,17 @@ button:focus-visible {
 } */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body{
   font-family: "Montserrat", sans-serif !important;
   background-color: whitesmoke;
+  overflow-x: hidden;
+ 
 }
 
 .bs-1{
@@ -79,6 +87,8 @@ body{
 }
 .header{
   padding: .6rem 6rem;
+  width: 100%;
+  
 }
 h1{
   font-size: 2.5rem !important;
@@ -86,19 +96,40 @@ h1{
 }
 .content{
   min-height: 80vh;
+  width: 100%;  
 }
 .car{
   border-radius: 5px;
+  /* border: 1px solid black; */
+  margin: 3rem 0 !important;
+  height: 8rem !important;
+}
+.car:hover{
+  height: 12rem !important;
+  transition: 0.5s ease-in-out;
+  height: 11rem !important;
+}
+
+.car:hover > .car-content{
+  opacity: 1;
+  transform: translateY(-3rem);
 }
 
 .car-img{
   height: 8.5rem;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   object-fit: contain;
   text-align: center;
-  /* box-shadow:  1px 1px 10px gray;
-  border: 1px solid gray; */
+  /* box-shadow:  1px 1px 10px gray; */
+  /* border: 1px solid gray; */
+  transform: translateY(-3rem);  
+}
+
+.car-content{
+  transform: translateY(-9rem);
+  opacity: 0;
+  transition: 0.5s ease-in-out;
 }
 
 p{

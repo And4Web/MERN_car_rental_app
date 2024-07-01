@@ -22,7 +22,7 @@ function Home() {
                 <div key={index} className="car p-2 bs-1 mt-3">
                   <img src={car.image} alt={car.name} className='car-img mb-2' />
 
-                  <div className="car-content d-flex align-items-center justify-content-between px-2">
+                  <div className="car-content d-flex align-items-center justify-content-between">
                     <div>
                       <h6>{car.name}</h6>
                       <p>&#8377;{car.rentPerHour} per hour</p>

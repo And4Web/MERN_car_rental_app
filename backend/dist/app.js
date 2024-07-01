@@ -9,6 +9,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 (0, dotenv_1.config)();
+const carsRoutes_1 = __importDefault(require("./routers/carsRoutes"));
 // Mongo DB cloud
 // mongoose.connect(process.env.mongoDB_uri as string).then(()=>console.log("MongoDB connection successfull to the Cloud.")).catch(error=>console.log(`MongoDB connection failed: ${error}`));
 // Mongo DB local
@@ -21,4 +22,8 @@ app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
     res.send(`Server running at PORT: ${PORT}. This server contains sensitive information. BE RESPONSIBLE.`);
 });
+// routes
+app.use("api/v1/cars", carsRoutes_1.default);
+// app.use("api/v1/user", usersRouter);
+// app.use("api/v1/auth", authRouter);
 app.listen(PORT, () => console.log(`server running on PORT: ${PORT}`));
