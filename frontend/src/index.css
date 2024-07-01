@@ -87,6 +87,48 @@ h1{
 .content{
   min-height: 80vh;
 }
+.car{
+  border-radius: 5px;
+}
+
+.car-img{
+  height: 8.5rem;
+  width: 100%;
+  border-radius: 5px;
+  object-fit: contain;
+  text-align: center;
+  /* box-shadow:  1px 1px 10px gray;
+  border: 1px solid gray; */
+}
+
+p{
+  margin: 6px !important;
+  text-align: left;
+  padding: 0;
+}
+
+.btn-1{
+  border: none;
+  outline: none;
+  padding: 10px;
+  background-color: white;
+  color: orangered;
+  border: 1px solid orangered;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media screen and (max-width: 1054px){
