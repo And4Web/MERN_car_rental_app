@@ -1,13 +1,20 @@
 import DefaultLayout from '../components/DefaultLayout'
 import { useSelector } from 'react-redux';
 import {Row, Col} from 'antd';
+import Loader from '../components/Loader';
 
 function Home() {
   const {cars} = useSelector(state=>state?.cars);
-  console.log(cars);
+
+  const {loading} = useSelector(state=>state?.alert);
+
+  console.log(cars, loading);
   return (
+    
     <DefaultLayout>
-      <Row justify="center" align="middle" gutter={16} className='mt-3'>
+      {loading && <Loader/>}
+
+      {!loading && <Row justify="center" align="middle" gutter={16} className='mt-3'>
         {
           cars?.map((car, index)=>{
             return (
@@ -31,7 +38,7 @@ function Home() {
             )
           })
         }
-      </Row>
+      </Row>}
       
     </DefaultLayout>
   )
