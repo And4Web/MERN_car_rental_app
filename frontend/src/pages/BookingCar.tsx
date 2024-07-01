@@ -1,8 +1,8 @@
-import React from 'react'
+import DefaultLayout from '../components/DefaultLayout'
 
 function BookingCar() {
   return (
-    <div>BookingCar</div>
+    <DefaultLayout>BookingCar</DefaultLayout>
   )
 }
 

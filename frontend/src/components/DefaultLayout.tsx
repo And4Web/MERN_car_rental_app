@@ -5,7 +5,7 @@ function DefaultLayout(props) {
       <div className="header bs-1">
         <div className="d-flex justify-content-between align-items-center">
           <h1>A-Cars</h1>
-          <button >User</button>
+          {/* <button >User</button> */}
         </div>
       </div>
 
