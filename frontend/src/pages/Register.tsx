@@ -2,7 +2,7 @@ import {Row, Col, Form, Input} from 'antd';
 import { Link } from 'react-router-dom';
 import { RegisterFormDataType } from '../types';
 import { useDispatch } from 'react-redux';
-import { userRegister } from '../redux/actions/userActions';
+import { backendUrl, userRegister } from '../redux/actions/userActions';
 
 function Register() {
 
@@ -12,7 +12,7 @@ function Register() {
     dispatch(userRegister(values));
     console.log(values);
   }
-
+  console.log("backendUrl: ", backendUrl)
   return (
     <div className='auth-pages'>
       <Row gutter={16} className='d-flex align-items-center'>
