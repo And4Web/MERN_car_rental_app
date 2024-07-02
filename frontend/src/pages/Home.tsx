@@ -14,7 +14,8 @@ function Home() {
     <DefaultLayout>
       {loading && <Loader/>}
 
-      {!loading && <Row justify="center" align="middle" gutter={16} className='mt-3'>
+      {!loading && <div className='cars-container'>
+        <Row justify="center" align="middle" gutter={16} className='mt-3'>
         {
           cars?.map((car, index)=>{
             return (
@@ -38,7 +39,8 @@ function Home() {
             )
           })
         }
-      </Row>}
+      </Row>
+        </div>}
       
     </DefaultLayout>
   )

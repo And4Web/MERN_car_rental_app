@@ -39,6 +39,26 @@ const initialData = {
       name: "Mahindra Scorpio-N",
       image: "https://imgd.aeplcdn.com/664x374/n/cw/ec/40432/scorpio-n-exterior-right-front-three-quarter-75.jpeg?isig=0&q=80",
       rentPerHour: 799
+    },
+    {
+      name: "Hyundai i20",
+      image: "https://imgd.aeplcdn.com/664x374/n/cw/ec/150603/i20-exterior-right-front-three-quarter-7.jpeg?isig=0&q=80",
+      rentPerHour: 599
+    },
+    {
+      name: "Maruti Swift",
+      image: "https://imgd.aeplcdn.com/1056x594/n/dpn98db_1738097.jpg?q=80",
+      rentPerHour: 599
+    },
+    {
+      name: "Toyota Fortuner",
+      image: "https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80",
+      rentPerHour: 1299
+    },
+    {
+      name: "Toyota Innova",
+      image: "https://imgd.aeplcdn.com/664x374/cw/specialVersions/6185.jpg?v=20190304024509&q=80",
+      rentPerHour: 899
     }
   ]
 }

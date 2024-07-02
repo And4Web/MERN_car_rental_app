@@ -78,7 +78,7 @@ body{
   font-family: "Montserrat", sans-serif !important;
   background-color: whitesmoke;
   overflow-x: hidden;
- 
+  
 }
 
 .bs-1{
@@ -113,6 +113,7 @@ h1{
 .car:hover > .car-content{
   opacity: 1;
   transform: translateY(-3rem);
+  
 }
 
 .car-img{
@@ -130,6 +131,7 @@ h1{
   transform: translateY(-9rem);
   opacity: 0;
   transition: 0.5s ease-in-out;
+  
 }
 
 p{
@@ -148,12 +150,73 @@ p{
   border-radius: 5px;
 }
 
+.auth-pages{
+  background-color: black;
+  min-height: 100vh;
+  
+}
+.auth-pages label, .auth-pages h1{
+  color: whitesmoke !important;
+}
+.auth-form{
+  background-color: rgb(33, 32, 32);
+  border-radius: 10px;
+  border: 1px solid rgb(64, 64, 64);
+  box-shadow: 1px 1px 5px rgb(74, 74, 74), inset 1px 2px 2px rgb(122, 121, 121);
+}
+.auth-form input{
+  background-color: rgb(78, 78, 78);
+  border: none;
+  outline: none;
+  
+}
+.auth-form > p{
+  color: rgb(137, 136, 136);
+  margin: 10px 0 !important;
+}
+.auth-form .auth-toggle{
+  text-decoration: underline;
+  color: rgb(209, 207, 207);
+  margin: 10px 0 !important;
+}
+.auth-btn{
+  border: none;
+  outline: none;
+  padding: 3px 12px;
+  background-color: rgb(173, 171, 171);
+  color: rgb(48, 47, 47);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgb(135, 134, 134);
+  /* border: 1px solid white; */
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 5px rgb(91, 91, 91), 1px 1px 2px gray;
+}
 
-
-
-
-
-
+.auth-bg-logo{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 57%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+.auth-bg-logo > h1{
+  color: white;
+  opacity: 0.5;
+  border-bottom: 2px dashed gray;
+  text-align: center;
+  width: 50%;
+}
+.auth-bg-logo > p{
+  color: white;
+  position: absolute;
+  left: -4.3rem;
+  font-size: 1rem;
+  opacity: 0.5;
+  text-align: center;
+  /* border-bottom: 1px solid gray; */
+}
 
 
 
@@ -166,10 +229,17 @@ p{
   .header{
     padding: .5rem 5rem;
   }
+  .cars-container{
+    margin: 0 5px
+  }
+  
 }
 @media screen and (max-width: 800px){
   .header{
     padding: .4rem 4rem;
+  }
+  .cars-container{
+    margin: 0 12px
   }
 }
 @media screen and (max-width: 510px){
