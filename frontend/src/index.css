@@ -90,6 +90,19 @@ body{
   width: 100%;
   
 }
+
+.header .ant-btn{
+  border: none !important;
+  outline: none !important;
+  padding: 10px !important;
+  color: orangered !important;
+  border: 1px solid orangered !important;
+  border-radius: 5px !important;
+}
+.header a{
+  text-decoration: none !important;
+}
+
 h1{
   font-size: 2.5rem !important;
   font-weight: bold;
