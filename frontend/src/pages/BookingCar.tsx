@@ -31,6 +31,10 @@ function BookingCar() {
   const {loading} = useSelector(state=>state?.alert);
   const dispatch = useDispatch();
 
+  const [from, setFrom] = useState<string>("");
+  const [to, setTo] = useState<string>("");
+  const [totalHours, setTotalHours] = useState<number>(0);
+
   const [car, setCar] = useState<CarType>();
   
   useEffect(()=>{
@@ -46,9 +50,17 @@ function BookingCar() {
   }, [cars])
 
   const handleSelectTimeSlot = (values):undefined =>{
-    console.log(values);
-    console.log(moment(values[0].$d).format('DD MMM YYYY HH:mm'))
-    console.log(moment(values[1].$d).format('DD MMM YYYY HH:mm'))
+    // console.log(values);
+    const from = moment(values[0].$d).format('DD MMM YYYY HH:mm');
+    const to = moment(values[1].$d).format('DD MMM YYYY HH:mm');
+    
+    const fromMilliSeconds = Date.parse(from);
+    const toMilliSeconds = Date.parse(to);
+    const tHours = (toMilliSeconds - fromMilliSeconds)/(1000*60*60);
+
+    setFrom(from);
+    setTo(to);
+    setTotalHours(tHours);    
   }
 
   return (
@@ -67,13 +79,19 @@ function BookingCar() {
             <p className="car-info-capacity"><b>Capacity:</b> {car?.capacity} Person</p>
             <p className="car-info-cc"><b>Displacement, Power & Torque:</b> {car?.displacement}CC, {car?.power} BHP, {car?.torque} Nm</p>
             <p className="car-info-fuel"><b>Fuel type:</b> {`${car?.fuelType.split("")[0].toUpperCase()}${car?.fuelType.split("").slice(1).join("")}`}</p>
-            <p className="car-info-rent-per-hour"><b>Rent per hour:</b> &#8377;{car?.rentPerHour}</p>
+            <p className="car-info-rent-per-hour"><b>Rent per hour:</b> &#8377;{car?.rentPerHour} (+18% GST on total)</p>
           </div>
 
           <h3>Time slots</h3>
           <div className="car-time-slots">
             <button className="btn-1">See booked time slots</button>
             <RangePicker showTime={{format: "HH:mm"}} format="DD MM YYYY HH:mm" onChange={handleSelectTimeSlot}/>
+          </div>
+          <div className="car-select-info">
+            <p><b>From: </b>{from} <b>To: </b>{to}</p>
+            <p><b>Total Hours: </b>{totalHours} {`${totalHours > 1 ? "hours" : "hour"}`}</p>
+            <p><b>Total Rent: </b>&#8377; {totalHours * (car?.rentPerHour as number)}</p>
+            <p><b>Total Cost: </b>&#8377; {Math.ceil(totalHours * (car?.rentPerHour as number) * 1.18)}</p>
           </div>
         </div>
       </div>
