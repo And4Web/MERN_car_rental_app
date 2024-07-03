@@ -2,13 +2,21 @@ import DefaultLayout from '../components/DefaultLayout'
 import { useSelector } from 'react-redux';
 import {Row, Col} from 'antd';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllCars } from '../redux/actions/carsActions';
 
 function Home() {
+  const dispatch =useDispatch();
   const {cars} = useSelector(state=>state?.cars);
-
   const {loading} = useSelector(state=>state?.alert);
 
-  console.log(cars, loading);
+  useEffect(()=>{
+    dispatch(getAllCars());
+  },[])
+
+  // console.log(cars, loading);
   return (
     
     <DefaultLayout>
@@ -31,7 +39,7 @@ function Home() {
 
 
                     <div>
-                      <button className='btn-1'>Book now</button>
+                      <button className='btn-1'><Link to={`/booking/${car._id}`}>Book now</Link></button>
                     </div>
                   </div>
                 </div>

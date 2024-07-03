@@ -13,9 +13,8 @@ function App() {
         <Route path='/' element={<ProtectePath><Home/></ProtectePath>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/bookingcar' element={<ProtectePath><BookingCar/></ProtectePath>}/>
+        <Route path='/booking/:carId' element={<ProtectePath><BookingCar/></ProtectePath>}/>
         <Route path='/profile' element={<ProtectePath><>Profile</></ProtectePath>}/>
-        <Route path='/bookings' element={<ProtectePath><>Bookings</></ProtectePath>}/>
       </Routes>
       
     </>
