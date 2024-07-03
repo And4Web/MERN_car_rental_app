@@ -2,7 +2,7 @@ import { Spin } from "antd";
 
 function Loader() {
   return (
-    <div className="m-5 text-center">
+    <div className="loader">
       <Spin size="large"/>
     </div>
   )

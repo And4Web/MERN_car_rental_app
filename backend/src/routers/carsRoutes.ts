@@ -3,6 +3,6 @@ import { getAllCars } from '../controllers/carsControllers';
 
 const router = Router();
 
-router.get('/getAllCars', getAllCars);
+router.get('/getallcars', getAllCars);
 
 export default router;
