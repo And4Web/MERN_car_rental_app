@@ -3,9 +3,9 @@ import DefaultLayout from '../components/DefaultLayout'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllCars } from '../redux/actions/carsActions';
+import { bookCar, getAllCars } from '../redux/actions/carsActions';
 import Loader from '../components/Loader';
-import { DatePicker } from 'antd';
+import { Checkbox, DatePicker } from 'antd';
 import moment from 'moment';
 // import axios from 'axios';
 // import { backendUrl } from '../redux/actions/userActions';
@@ -34,8 +34,13 @@ function BookingCar() {
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
   const [totalHours, setTotalHours] = useState<number>(0);
+  const [totalCarRent, setTotalCarRent] = useState<number>(0);
 
   const [car, setCar] = useState<CarType>();
+  const [hireDriver, setHireDriver] = useState<boolean>(false);
+  const [driverRent, setDriverRent] = useState<number>(0);
+
+  const [totalCost, setTotalCost] = useState<number>(0);
   
   useEffect(()=>{
     if(cars.length === 0){
@@ -49,6 +54,27 @@ function BookingCar() {
 
   }, [cars])
 
+  useEffect(()=>{  
+
+    if(hireDriver && totalHours > 0){
+      setHireDriver(true);
+      setDriverRent(Math.ceil((totalHours * 499)*1.18));      
+    }else if(!hireDriver && totalHours > 0){
+      setHireDriver(false);
+      setDriverRent(0);      
+    }else{
+      setHireDriver(false);
+      setDriverRent(0);
+    }
+
+    if(hireDriver){
+      const tCost = totalCarRent + driverRent;
+      setTotalCost(tCost);
+    }else{
+      setTotalCost(totalCarRent);
+    }
+  },[hireDriver, driverRent, totalHours, totalCarRent, totalCost])
+
   const handleSelectTimeSlot = (values):undefined =>{
     // console.log(values);
     const from = moment(values[0].$d).format('DD MMM YYYY HH:mm');
@@ -58,11 +84,36 @@ function BookingCar() {
     const toMilliSeconds = Date.parse(to);
     const tHours = (toMilliSeconds - fromMilliSeconds)/(1000*60*60);
 
+    const tCarRent = Math.ceil((car?.rentPerHour as number * tHours) * 1.18);
+
     setFrom(from);
     setTo(to);
-    setTotalHours(tHours);    
+    setTotalHours(tHours); 
+    setTotalCarRent(tCarRent);
   }
 
+  const handleBookNow = () => {
+    const reqObj = {
+      user: JSON.parse(localStorage.getItem('user') as string)._id,
+      car: car?._id,
+      totalHours,
+      totalCost,
+      driverRent,
+      carRent: totalCarRent,
+      driverRequired: hireDriver,
+      bookedTimeSlots: {
+        from,
+        to
+      },
+      
+    }
+
+
+    dispatch(bookCar(reqObj));
+
+  }
+
+  // console.log(hireDriver, totalCarRent, driverRent, totalCost)
   return (
     <DefaultLayout>
       {loading && <Loader/>}
@@ -79,7 +130,8 @@ function BookingCar() {
             <p className="car-info-capacity"><b>Capacity:</b> {car?.capacity} Person</p>
             <p className="car-info-cc"><b>Displacement, Power & Torque:</b> {car?.displacement}CC, {car?.power} BHP, {car?.torque} Nm</p>
             <p className="car-info-fuel"><b>Fuel type:</b> {`${car?.fuelType.split("")[0].toUpperCase()}${car?.fuelType.split("").slice(1).join("")}`}</p>
-            <p className="car-info-rent-per-hour"><b>Rent per hour:</b> &#8377;{car?.rentPerHour} (+18% GST on total)</p>
+            <p className="car-info-rent-per-hour"><b>Car's Rent:</b> &#8377;{car?.rentPerHour} per hour (+18% GST)</p>
+            <p><b>Driver's rent: </b>&#8377; 499 per hour (+18% GST)</p>
           </div>
 
           <h3>Time slots</h3>
@@ -88,24 +140,39 @@ function BookingCar() {
             <RangePicker showTime={{format: "HH:mm"}} format="DD MM YYYY HH:mm" onChange={handleSelectTimeSlot}/>
           </div>
           <div className="car-select-info">
-            <p><b>From: </b>{from} <b>To: </b>{to}</p>
-            <p><b>Total Hours: </b>{totalHours} {`${totalHours > 1 ? "hours" : "hour"}`}</p>
-            <p><b>Total Rent: </b>&#8377; {totalHours * (car?.rentPerHour as number)}</p>
-            <p><b>Total Cost: </b>&#8377; {Math.ceil(totalHours * (car?.rentPerHour as number) * 1.18)}</p>
+           <div className="car-select-left">
+            <div className="from">
+              <p><b>From:</b></p>
+              <p>{from}</p>
+            </div>
+            <div className="to">
+              <p><b>To:</b></p>
+              <p>{to}</p>
+            </div>
+            <p><b>Total Hours: </b>{totalHours} {`${totalHours > 1 ? "hours" : "hour"}`}</p>            
+           </div>
+
+           <div className="car-select-right">
+           <Checkbox onChange={(e)=>{
+              if(e.target.checked){
+                setHireDriver(true)
+              }else{
+                setHireDriver(false)
+              }
+            }}><b>Hire driver</b></Checkbox>
+            {hireDriver && (
+              <p><b>Driver's Rent:</b> &#8377; {driverRent} (GST: &#8377; {Math.ceil((499 * totalHours) * 0.18)} inc.)</p>
+            )}
+            <p><b>Car's Rent: </b>&#8377; {totalCarRent} (GST: &#8377; {Math.ceil(totalHours * (car?.rentPerHour as number) * 0.18)} inc.)</p>
+            <p><b>Total Cost: </b>&#8377; {totalCost}</p>
+
+            <button className="btn-1" onClick={handleBookNow}>Book now</button>
+           </div>
           </div>
         </div>
       </div>
 
-      {/* <Row justify='center' className='d-flex align-items-center justify-content-center' style={{minHeight: "80vh"}}>
-        <Col lg={10} sm={24} xs={24}>
-          <img src={car?.image} alt={car?.name} className='car-img-2 bs-1'/>
-        </Col>
-
-
-        <Col lg={10} sm={24} xs={24}>
-          <Divider type='horizontal' dashed>Car info</Divider>
-        </Col>
-      </Row> */}
+      
       
     </DefaultLayout>
   )

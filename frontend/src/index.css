@@ -311,7 +311,19 @@ p{
 .car-select-info{
   justify-self: flex-end;
   align-self: flex-end;
+  /* padding-top: 0; */
   padding-right: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* height: 15rem; */
+  /* border: 1px solid black; */
+}
+.car-select-info .from{
+  /* border: 1px solid black !important; */
+  display: inline !important;
 }
 
 

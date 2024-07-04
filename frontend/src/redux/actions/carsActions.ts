@@ -1,5 +1,6 @@
 import axios from "axios";
 import { backendUrl } from "./userActions";
+import { message } from "antd";
 
 // type GetAllCarsActionType = {type: string, payload: Promise<string>|boolean}
 
@@ -11,7 +12,35 @@ export const getAllCars = () => async (dispatch) => {
     dispatch({type: "LOADING", payload: false});
 
   } catch (error) {
+    message.error("Can't fetch data at this moment.")
     console.log("Error while fetching all cars data >>> ", error);
     dispatch({type: "LOADING", payload: false});
   }
+}
+
+export type BookCarRequestObject = {
+    user: string;
+    car: string;
+    totalHours: number;
+    totalCost: number;
+    driverRent: number;
+    driverRequired: boolean;
+    bookedTimeSlots: {
+        from: string;
+        to: string;
+    };
+}
+
+export const bookCar = (reqObj:BookCarRequestObject) => async(dispatch)=>{
+  dispatch({type: "LOADING", payload: true});
+
+  try {
+    await axios.post(`${backendUrl}/cars/bookcar`, reqObj);   
+    message.success('Booking successfull.')
+    dispatch({type: "LOADING", payload: false});
+  } catch (error) {
+    message.error("Something went wrong. Try again later.")
+    dispatch({type: "LOADING", payload: false});
+  }
+
 }

@@ -15,7 +15,8 @@ const carsSchema = new mongoose_1.default.Schema({
     bookedTimeSlots: [
         {
             from: { type: String, required: true },
-            to: { type: String, required: true }
+            to: { type: String, required: true },
+            user: { type: String, required: true }
         }
     ],
     rentPerHour: { type: Number, required: true }
