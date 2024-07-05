@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { bookCar, getAllCars } from '../redux/actions/carsActions';
 import Loader from '../components/Loader';
-import { Checkbox, DatePicker } from 'antd';
+import { Checkbox, DatePicker, Modal } from 'antd';
 import moment from 'moment';
 // import axios from 'axios';
 // import { backendUrl } from '../redux/actions/userActions';
@@ -41,6 +41,8 @@ function BookingCar() {
   const [driverRent, setDriverRent] = useState<number>(0);
 
   const [totalCost, setTotalCost] = useState<number>(0);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
   
   useEffect(()=>{
     if(cars.length === 0){
@@ -76,7 +78,6 @@ function BookingCar() {
   },[hireDriver, driverRent, totalHours, totalCarRent, totalCost])
 
   const handleSelectTimeSlot = (values):undefined =>{
-    // console.log(values);
     const from = moment(values[0].$d).format('DD MMM YYYY HH:mm');
     const to = moment(values[1].$d).format('DD MMM YYYY HH:mm');
     
@@ -136,7 +137,7 @@ function BookingCar() {
 
           <h3>Time slots</h3>
           <div className="car-time-slots">
-            <button className="btn-1">See booked time slots</button>
+            <button className="btn-1" onClick={()=>setShowModal(true)}>See booked time slots</button>
             <RangePicker showTime={{format: "HH:mm"}} format="DD MM YYYY HH:mm" onChange={handleSelectTimeSlot}/>
           </div>
           <div className="car-select-info">
@@ -167,9 +168,21 @@ function BookingCar() {
             <p><b>Total Cost: </b>&#8377; {totalCost}</p>
 
             <button className="btn-1" onClick={handleBookNow}>Book now</button>
+
+            <Modal closable footer={false} title="Booked time slots" open={showModal} onCancel={()=>setShowModal(false)}>
+          {
+            car?.bookedTimeSlots?.length === 0 ? (<p>No bookings yet</p> ) : car?.bookedTimeSlots.map((slot, index)=>{
+              return (
+                <p key={index} style={{borderBottom: "1px solid black"}}>{slot.from} - { slot.to}</p>
+              )
+            })
+          }
+          </Modal> 
            </div>
           </div>
         </div>
+
+        
       </div>
 
       
