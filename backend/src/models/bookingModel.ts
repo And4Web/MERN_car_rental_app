@@ -1,6 +1,22 @@
 import mongoose from 'mongoose';
+import { CarType, UserType } from '../types';
 
-const bookingSchema = new mongoose.Schema({
+export type BookingType = {
+  car: CarType;
+  user: UserType;
+  bookedTimeSlots: {
+    from: string;
+    to: string;
+  },
+  totalHours: number;
+  totalCost: number;
+  carRent: number;
+  driverRequired: boolean;
+  driverRent: number;
+  transactionId: string;
+}
+
+const bookingSchema = new mongoose.Schema<BookingType>({
   car: {type: mongoose.Schema.Types.ObjectId, ref: "cars", required: true},
   user: {type: mongoose.Schema.Types.ObjectId, ref: "users", required: true},
   bookedTimeSlots: {from: {type: String, required: true}, to: {type: String, required: true}},

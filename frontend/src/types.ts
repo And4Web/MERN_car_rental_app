@@ -10,3 +10,9 @@ export type RegisterFormDataType = {
 }
 
 export type RequestObject = LoginFormDataType | RegisterFormDataType;
+
+export type PaymentIntentResponse = {
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost: string;
+}

@@ -10,3 +10,9 @@ export type CarType = {
   bookedTimeSlots: {from:string; to:string}[],
   rentPerHour: number;
 }
+
+export type PaymentIntentResponse = {
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost: string;
+}

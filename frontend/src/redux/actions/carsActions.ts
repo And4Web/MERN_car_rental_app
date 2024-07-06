@@ -1,6 +1,7 @@
 import axios from "axios";
 import { backendUrl } from "./userActions";
 import { message } from "antd";
+import { PaymentIntentResponse } from "../../types";
 
 // type GetAllCarsActionType = {type: string, payload: Promise<string>|boolean}
 
@@ -44,3 +45,25 @@ export const bookCar = (reqObj:BookCarRequestObject) => async(dispatch)=>{
   }
 
 }
+
+// export type PaymentIntentRequestObject = {
+//   car: string, 
+//   user: string, 
+//   totalCost: string
+// }
+
+// export const createPaymentIntent = (reqObj: PaymentIntentRequestObject) => async(dispatch) => {
+//   dispatch({type: "LOADING", payload: true});
+//   try {
+//     const response = await axios.post(`${backendUrl}/cars/${reqObj.car}/payment-intent`, reqObj);
+
+//     const stripeData = response.data.response;
+
+//     localStorage.setItem('stripeData',JSON.stringify(stripeData) as string);
+    
+//     dispatch({type: "LOADING", payload: false});
+//   } catch (error) {
+//     console.log('Error >>> ', error); 
+//     dispatch({type: "LOADING", payload: false});
+//   }
+// }

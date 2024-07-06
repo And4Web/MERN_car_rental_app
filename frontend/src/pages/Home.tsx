@@ -26,7 +26,7 @@ function Home() {
     setAvailableCars(cars);
   }, [cars]);
 
-  console.log(availableCars, loading);
+  // console.log(availableCars, loading);
 
   const handleFilterSlot = (values) => {
     const fromFilter = moment(values[0].$d).format("DD MMM YYYY HH:mm");
