@@ -11,6 +11,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 (0, dotenv_1.config)();
 const carsRoutes_1 = __importDefault(require("./routers/carsRoutes"));
 const usersRoutes_1 = __importDefault(require("./routers/usersRoutes"));
+const bookingsRoutes_1 = __importDefault(require("./routers/bookingsRoutes"));
 // Mongo DB cloud
 // mongoose.connect(process.env.mongoDB_uri as string).then(()=>console.log("MongoDB connection successfull to the Cloud.")).catch(error=>console.log(`MongoDB connection failed: ${error}`));
 // Mongo DB local
@@ -26,5 +27,6 @@ app.get('/', (req, res) => {
 // routes
 app.use("/api/v1/cars", carsRoutes_1.default);
 app.use("/api/v1/users", usersRoutes_1.default);
+app.use('/api/v1/bookings', bookingsRoutes_1.default);
 // app.use("api/v1/auth", authRouter);
 app.listen(PORT, () => console.log(`server running on PORT: ${PORT}`));

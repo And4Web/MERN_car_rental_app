@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import BookingCar from './pages/BookingCar';
 import Register from './pages/Register';
+import UserBookings from './pages/UserBookings';
 import ProtectePath from './components/ProtectePath';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/booking/:carId' element={<ProtectePath><BookingCar/></ProtectePath>}/>
         <Route path='/profile' element={<ProtectePath><>Profile</></ProtectePath>}/>
+        <Route path='/userbookings' element={<ProtectePath><UserBookings/></ProtectePath>}></Route>
       </Routes>
       
     </>

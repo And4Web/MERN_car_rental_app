@@ -141,7 +141,7 @@ function BookingCar() {
 
     dispatch(bookCar(reqObj));
     
-    console.log("stripe token >>> ", token);
+    // console.log("stripe token >>> ", token);
   }
 
   // console.log(hireDriver, totalCarRent, driverRent, totalCost)
