@@ -16,64 +16,73 @@ function EditCar() {
   const {loading} = useSelector(state=>state?.alert);
   const {car} = useSelector(state=>state?.car);
 
-  const [currentCar, setCurrentCar] = useState<CarType>({});
+  // const [currentCar, setCurrentCar] = useState<CarType>({});
 
   useEffect(()=>{
     dispatch(getSingleCar(params.carId));
   },[])
 
+  // useEffect(()=>{
+  //   setCurrentCar(car);
+  // },[car]);
+
   const onFinish = (values) => {
-    const prevValues = car;
-    
-    console.log(values);
+    // const prevValues = car;
+
+    // console.log(values);
   }
 
   
-  console.log(car, currentCar)
+  console.log("car: ", car)
+
   return (
     <DefaultLayout>
 
     {loading && <Loader/>}
 
-    <h2 className="text-center mt-3">Add new car</h2>
+    <h2 className="text-center mt-3">Edit Car</h2>
 
     <Row justify="center" className="mx-2">
       <Col lg={12} sm={24}>
-      <Form className="bs-1 p-2 d-flex flex-column rounded pt-3 mb-5" layout="vertical" onFinish={onFinish}>
+      {
+        (car._id === params.carId) && (
+          <Form initialValues={car} className="bs-1 p-2 d-flex flex-column rounded pt-3 mb-5" layout="vertical" onFinish={onFinish}>
       <FormItem name="name" label="Car name" rules={[{required: true}]} >
-        <Input type="text" placeholder={car.name}/>
+        <Input type="text" />
       </FormItem >
 
       <FormItem name="image" label="Image" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.image}/>
+        <Input type="text" />
       </FormItem>
 
       <FormItem name="capacity" label="Capacity (Number of passangers including driver)" rules={[{required: true}]}>
-        <Input type="number" min={2} max={20} placeholder={car.capacity}/>
+        <Input type="number" min={2} max={20} />
       </FormItem>
 
       <FormItem name="displacement" label="Displacement (CC)" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.displacement}/>
+        <Input type="text" />
       </FormItem>
 
       <FormItem name="power" label="Power (BHP)" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.power}/>
+        <Input type="text" />
       </FormItem>
 
       <FormItem name="torque" label="Torque (Nm)" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.torque}/>
+        <Input type="text" />
       </FormItem>
 
       <FormItem name="fuelType" label="Fuel type (Petrol/Diesel/EV/Hybrid)" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.fuelType}/>
+        <Input type="text" />
       </FormItem>
 
       <FormItem name="rentPerHour" label="Rent per hour (₹)" rules={[{required: true}]}>
-        <Input type="text" placeholder={car.rentPerHour}/>
+        <Input type="text" />
       </FormItem>
 
       <button className="btn-1 w-50 align-self-center mb-3" type="submit" >Edit Car</button>
     </Form>
+        )
+      }
       
       </Col>
     </Row>
