@@ -8,6 +8,8 @@ import UserBookings from './pages/UserBookings';
 import ProtectePath from './components/ProtectePath';
 import DefaultLayout from './components/DefaultLayout';
 import AddCar from './pages/AddCar';
+import AdminHome from './pages/AdminHome';
+import EditCar from './pages/EditCar';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path='/profile' element={<ProtectePath><><DefaultLayout>Profile</DefaultLayout></></ProtectePath>}/>
         <Route path='/bookings' element={<ProtectePath><UserBookings/></ProtectePath>}></Route>
         <Route path="/addcar" element={<ProtectePath><AddCar/></ProtectePath>}/>
+        <Route path="/admin" element={<ProtectePath><AdminHome/></ProtectePath>}/>
+        <Route path="/editcar/:carId" element={<ProtectePath><EditCar/></ProtectePath>}/>
       </Routes>
       
     </>

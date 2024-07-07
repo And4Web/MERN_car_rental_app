@@ -40,7 +40,7 @@ export const bookCar = (reqObj:BookCarRequestObject) => async(dispatch)=>{
 
     message.success('Booking successfull.');
     setTimeout(()=>{
-      window.location.href="/userbookings";
+      window.location.href="/bookings";
     }, 500);
     dispatch({type: "LOADING", payload: false});
   } catch (error) {
@@ -101,7 +101,7 @@ export const addCar = (reqObj:AddCarType) => async (dispatch) => {
     setTimeout(()=>{
       window.location.href="/";
     }, 500);
-    
+
     dispatch({type: 'LOADING', payload: false})
   } catch (error) {
     console.log("error >>> ", error);
@@ -109,4 +109,20 @@ export const addCar = (reqObj:AddCarType) => async (dispatch) => {
     dispatch({type: 'LOADING', payload: false})
   }
 
+}
+
+export const getSingleCar = (carId:string) => async (dispatch) => {
+  dispatch({type: "LOADING", payload: true});
+  try {    
+    const response = await axios.get(`${backendUrl}/cars/getsinglecar/${carId}`);
+
+    dispatch({type: 'GET_SINGLE_CAR', payload: response.data.car});
+
+    dispatch({type: "LOADING", payload: false})
+    return response.data.car;
+
+  } catch (error) {
+    console.log(error);
+    dispatch({type: "LOADING", payload: false});
+  }
 }

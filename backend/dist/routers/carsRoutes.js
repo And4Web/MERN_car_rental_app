@@ -8,5 +8,6 @@ router.post('/addnewcar', carsControllers_1.addNewCar);
 // router.post('/:carId/payment-intent', createPaymentIntent);
 // router.post('/:carId/booking', createCarBooking);
 router.post('/bookcar', carsControllers_1.bookCar);
+router.get('/getsinglecar/:carId', carsControllers_1.getSingleCar);
 // router.post('/:carId/booking', createBooking);
 exports.default = router;

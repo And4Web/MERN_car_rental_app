@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookCar = exports.addNewCar = exports.getAllCars = void 0;
+exports.getSingleCar = exports.bookCar = exports.addNewCar = exports.getAllCars = void 0;
 const carsModel_1 = __importDefault(require("../models/carsModel"));
 const bookingModel_1 = __importDefault(require("../models/bookingModel"));
 const stripe_1 = __importDefault(require("stripe"));
@@ -12,20 +12,38 @@ const stripe = new stripe_1.default(process.env.STRIPE_API_KEY);
 const getAllCars = async (req, res) => {
     const cars = await carsModel_1.default.find({});
     if (cars.length === 0)
-        return res.status(404).json("No Car found at this moment. Try again later.");
+        return res
+            .status(404)
+            .json("No Car found at this moment. Try again later.");
     return res.status(200).json(cars);
 };
 exports.getAllCars = getAllCars;
 const addNewCar = async (req, res) => {
-    const { name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement, } = req.body;
-    const newCar = await new carsModel_1.default({ name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement, });
-    await newCar.save();
-    return res.status(200).json("new Car added to the list");
+    try {
+        const { name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement, } = req.body;
+        const newCar = await new carsModel_1.default({
+            name,
+            image,
+            rentPerHour,
+            fuelType,
+            bookedTimeSlots,
+            capacity,
+            power,
+            torque,
+            displacement,
+        });
+        await newCar.save();
+        return res.status(200).json("new Car added to the list");
+    }
+    catch (error) {
+        console.log("Failed adding new car.");
+        return res.status(500).json("Something went wrong");
+    }
 };
 exports.addNewCar = addNewCar;
 const bookCar = async (req, res) => {
     try {
-        const { token, car, user, totalHours, totalCost, driverRent, driverRequired, bookedTimeSlots, carRent } = req.body;
+        const { token, car, user, totalHours, totalCost, driverRent, driverRequired, bookedTimeSlots, carRent, } = req.body;
         const customer = await stripe.customers.create({
             email: token.email,
             source: token.id,
@@ -38,29 +56,43 @@ const bookCar = async (req, res) => {
             metadata: {
                 userId: user,
                 carId: car,
-            }
+            },
         }, {
             idempotencyKey: (0, uuid_1.v4)(),
         });
         if (payment) {
             const newBookingObj = {
-                car, user, totalCost, totalHours, driverRent, driverRequired, bookedTimeSlots, carRent, transactionId: payment.source.id
+                car,
+                user,
+                totalCost,
+                totalHours,
+                driverRent,
+                driverRequired,
+                bookedTimeSlots,
+                carRent,
+                transactionId: payment.source.id,
             };
             const newBooking = await new bookingModel_1.default(newBookingObj);
             await newBooking.save();
             const currentCar = await carsModel_1.default.findOne({ _id: newBookingObj.car });
-            const newSlot = { ...newBookingObj.bookedTimeSlots, user: newBookingObj.user, transationId: newBookingObj.transactionId };
+            const newSlot = {
+                ...newBookingObj.bookedTimeSlots,
+                user: newBookingObj.user,
+                transationId: newBookingObj.transactionId,
+            };
             currentCar?.bookedTimeSlots.push(newSlot);
             await currentCar?.save();
-            return res.status(200).json({ message: 'Booking Successfull.', booking: newBookingObj });
+            return res
+                .status(200)
+                .json({ message: "Booking Successfull.", booking: newBookingObj });
         }
         else {
-            return res.status(500).json('Booking failed.');
+            return res.status(500).json("Booking failed.");
         }
     }
     catch (error) {
         console.log(error);
-        return res.status(500).json('Booking failed.');
+        return res.status(500).json("Booking failed.");
     }
 };
 exports.bookCar = bookCar;
@@ -95,3 +127,17 @@ exports.bookCar = bookCar;
 //     return res.status(500).json(`Something went wrong while booking`);
 //   }
 // }
+const getSingleCar = async (req, res) => {
+    try {
+        const { carId } = req.params;
+        const car = await carsModel_1.default.findOne({ _id: carId });
+        if (!car)
+            return res.status(404).json("No car found.");
+        return res.status(200).json({ car });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json(error?.message);
+    }
+};
+exports.getSingleCar = getSingleCar;
