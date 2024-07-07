@@ -8,7 +8,7 @@ const bookingModel_1 = __importDefault(require("../models/bookingModel"));
 const getAllBookings = async (req, res) => {
     try {
         const { userId } = req.params;
-        const bookings = await bookingModel_1.default.find({ user: userId });
+        const bookings = await bookingModel_1.default.find({ user: userId }).populate('car');
         // console.log({bookings});
         if (!bookings)
             return res.status(404).json("No bookngs found for this user.");

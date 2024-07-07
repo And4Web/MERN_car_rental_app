@@ -16,8 +16,9 @@ export const getAllCars = async(req:Request, res:Response) => {
 }
 
 export const addNewCar = async (req:Request, res:Response)=>{
-  const {name, image, rentPerHour, fuelType, bookedTimeSlots, capacity} = req.body;
-  const newCar = await new Car({name, image, rentPerHour, fuelType, bookedTimeSlots, capacity});
+  const {name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement,} = req.body;
+
+  const newCar = await new Car({name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement,});
 
   await newCar.save();
 

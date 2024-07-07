@@ -17,8 +17,8 @@ export type BookingType = {
 }
 
 const bookingSchema = new mongoose.Schema<BookingType>({
-  car: {type: mongoose.Schema.Types.ObjectId, ref: "cars", required: true},
-  user: {type: mongoose.Schema.Types.ObjectId, ref: "users", required: true},
+  car: {type: mongoose.Schema.Types.ObjectId, ref: "Car", required: true},
+  user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
   bookedTimeSlots: {from: {type: String, required: true}, to: {type: String, required: true}},
   totalHours: {type: Number, required: true},
   totalCost: {type: Number, required: true},

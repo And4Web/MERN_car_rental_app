@@ -4,7 +4,7 @@ import Booking from "../models/bookingModel";
 export const getAllBookings = async (req:Request, res: Response) => {
   try {
     const {userId} = req.params;
-    const bookings = await Booking.find({user: userId});
+    const bookings = await Booking.find({user: userId}).populate('car');
 
     // console.log({bookings});
 

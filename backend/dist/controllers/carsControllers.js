@@ -17,8 +17,8 @@ const getAllCars = async (req, res) => {
 };
 exports.getAllCars = getAllCars;
 const addNewCar = async (req, res) => {
-    const { name, image, rentPerHour, fuelType, bookedTimeSlots, capacity } = req.body;
-    const newCar = await new carsModel_1.default({ name, image, rentPerHour, fuelType, bookedTimeSlots, capacity });
+    const { name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement, } = req.body;
+    const newCar = await new carsModel_1.default({ name, image, rentPerHour, fuelType, bookedTimeSlots, capacity, power, torque, displacement, });
     await newCar.save();
     return res.status(200).json("new Car added to the list");
 };

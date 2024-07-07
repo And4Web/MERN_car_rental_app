@@ -13,11 +13,13 @@ export const userLogin = (reqObj:RequestObject) => async (dispatch:Dispatch) => 
     const {username, _id} = response.data;
     localStorage.setItem("user", JSON.stringify({username, _id}));
     
-    message.success('Login success');
-
+     
+    
     setTimeout(()=>{
-      window.location.href = "/";    
+      window.location.href = "/"; 
     }, 1000);
+    
+    message.success('Login success');
 
     dispatch({type: 'LOADING', payload: false});
   } catch (error) {

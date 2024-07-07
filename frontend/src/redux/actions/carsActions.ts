@@ -37,7 +37,11 @@ export const bookCar = (reqObj:BookCarRequestObject) => async(dispatch)=>{
 
   try {
     await axios.post(`${backendUrl}/cars/bookcar`, reqObj);   
-    message.success('Booking successfull.')
+
+    message.success('Booking successfull.');
+    setTimeout(()=>{
+      window.location.href="/userbookings";
+    }, 500);
     dispatch({type: "LOADING", payload: false});
   } catch (error) {
     message.error("Something went wrong. Try again later.")
@@ -67,3 +71,42 @@ export const bookCar = (reqObj:BookCarRequestObject) => async(dispatch)=>{
 //     dispatch({type: "LOADING", payload: false});
 //   }
 // }
+
+export type AddCarType = {
+  name: string;
+  image: string;
+  capacity: number;
+  rentPerHour: number;
+  displacement: number;
+  power: number;
+  torque: number;
+  fuelType: string;
+  bookedTimeSlots: [] | {
+    from: string;
+    to: string;
+    user: string
+  }[]
+
+}
+
+export const addCar = (reqObj:AddCarType) => async (dispatch) => {
+
+  dispatch({type: "LOADING", payload: true});
+
+  try {  
+    await axios.post(`${backendUrl}/cars/addnewcar`, reqObj);
+
+    message.success("new Car created. navigating back to home.")
+
+    setTimeout(()=>{
+      window.location.href="/";
+    }, 500);
+    
+    dispatch({type: 'LOADING', payload: false})
+  } catch (error) {
+    console.log("error >>> ", error);
+    message.error(error?.message);
+    dispatch({type: 'LOADING', payload: false})
+  }
+
+}

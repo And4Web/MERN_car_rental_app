@@ -46,7 +46,7 @@ function DefaultLayout(props) {
     <div >
       <div className="header bs-1">
         <div className="d-flex justify-content-between align-items-center">
-          <h1>A-Cars</h1>
+          <Link to="/"><h1 className="text-dark">A-Cars</h1></Link>
           {/* <button >User</button> */}
           <Dropdown menu={{items}} placement="bottom">
             <Button>Welcome, {user.username}!</Button>

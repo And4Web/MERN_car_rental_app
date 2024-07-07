@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const bookingSchema = new mongoose_1.default.Schema({
-    car: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "cars", required: true },
-    user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "users", required: true },
+    car: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Car", required: true },
+    user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "User", required: true },
     bookedTimeSlots: { from: { type: String, required: true }, to: { type: String, required: true } },
     totalHours: { type: Number, required: true },
     totalCost: { type: Number, required: true },
