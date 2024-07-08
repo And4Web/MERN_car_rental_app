@@ -8,13 +8,16 @@ import { getSingleCar } from "../redux/actions/carsActions";
 import Loader from "../components/Loader";
 import { Col, Form, Input, Row } from "antd";
 import FormItem from "antd/es/form/FormItem";
+import { RootState } from "../redux/store";
+import { CarStateType } from "../redux/reducers/singleCarReducer";
+import { AlertStateType } from "../redux/reducers/alertReducer";
 
 
 function EditCar() {
   const dispatch = useDispatch();
   const params = useParams();
-  const {loading} = useSelector(state=>state?.alert);
-  const {car} = useSelector(state=>state?.car);
+  const {loading} = useSelector<RootState, AlertStateType>(state=>state?.alert);
+  const {car} = useSelector<RootState, CarStateType>(state=>state?.car);
 
   // const [currentCar, setCurrentCar] = useState<CarType>({});
 

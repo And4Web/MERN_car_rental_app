@@ -5,12 +5,14 @@ import { getAllBookings } from "../redux/actions/bookingsActions";
 import DefaultLayout from "../components/DefaultLayout";
 import { Col, Row } from "antd";
 import moment from "moment";
+import { RootState } from "../redux/store";
+import { BookingsStateType } from "../redux/reducers/bookingsReducer";
 
 
 function UserBookings() {
 
   const dispatch = useDispatch();
-  const {bookings} = useSelector(state => state?.bookings);
+  const {bookings} = useSelector<RootState, BookingsStateType>(state => state?.bookings);
 
   console.log(bookings);
 

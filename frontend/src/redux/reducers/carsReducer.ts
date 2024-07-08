@@ -1,3 +1,5 @@
+import { CarType } from "../../pages/BookingCar";
+
 const initialData = {
   cars: [],
 };
@@ -8,12 +10,17 @@ export type Car = {
   rentPerHours: number;
   fuelType: string;
 };
+
+export type CarsStateType = {
+  cars: CarType | []
+}
+
 export type CarActionType = {
   type: string;
   payload: Car[];
 };
 
-export const carsReducer = (state = initialData, action: CarActionType) => {
+export const carsReducer = (state:CarsStateType = initialData, action: CarActionType) => {
   switch (action.type) {
     case "GET_ALL_CARS":
       return {

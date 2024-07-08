@@ -5,11 +5,13 @@ import { useDispatch } from "react-redux";
 import { addCar } from "../redux/actions/carsActions";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import { AlertStateType } from "../redux/reducers/alertReducer";
+import { RootState } from "../redux/store";
 
 
 function AddCar() {
 
-  const {loading} = useSelector(state=>state?.alert);
+  const {loading} = useSelector<RootState, AlertStateType>(state=>state?.alert);
 
   const dispatch = useDispatch();
 

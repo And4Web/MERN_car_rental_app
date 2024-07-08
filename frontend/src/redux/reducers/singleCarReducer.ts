@@ -9,6 +9,10 @@ export type SingleCarReducerAction = {
   payload: CarType;
 }
 
+export type CarStateType = {
+  car: CarType | null
+}
+
 export const singleCarReducer = (state=initialData, action: SingleCarReducerAction) => {
   switch(action.type){
     case 'GET_SINGLE_CAR':

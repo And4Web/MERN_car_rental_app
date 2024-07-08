@@ -9,6 +9,9 @@ import { Checkbox, DatePicker, Modal } from "antd";
 import moment from "moment";
 
 import StripeCheckout from "react-stripe-checkout";
+import { RootState } from "../redux/store";
+import { CarsStateType } from "../redux/reducers/carsReducer";
+import { AlertStateType } from "../redux/reducers/alertReducer";
 
 // import { CardElement, Elements } from "@stripe/react-stripe-js";
 // import stripePromise from "../stripe/stripe";
@@ -32,8 +35,8 @@ export type CarType = {
 
 function BookingCar() {
   const params = useParams();
-  const { cars } = useSelector((state) => state?.cars);
-  const { loading } = useSelector((state) => state?.alert);
+  const { cars } = useSelector<RootState, CarsStateType>((state) => state?.cars);
+  const { loading } = useSelector<RootState, AlertStateType>((state) => state?.alert);
   const dispatch = useDispatch();
 
   const [from, setFrom] = useState<string>("");

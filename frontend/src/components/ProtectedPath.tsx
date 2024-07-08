@@ -1,6 +1,6 @@
 
 
-function ProtectePath(props) {
+function ProtectedPath(props) {
     
     if(localStorage.getItem('user')){
       return <div>
@@ -13,4 +13,4 @@ function ProtectePath(props) {
   
 }
 
-export default ProtectePath
+export default ProtectedPath

@@ -18,7 +18,12 @@ export type BookingActionType = {
   payload: BookingType[];
 }
 
-export const bookingsReducer = (state=initialData, action:BookingActionType) => {
+export type BookingsStateType = {
+  bookings: BookingType[] | [] | undefined
+}
+
+
+export const bookingsReducer = (state:BookingsStateType=initialData, action:BookingActionType) => {
   switch(action.type){
     case "GET_ALL_BOOKINGS":
       return {

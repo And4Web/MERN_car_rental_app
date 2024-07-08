@@ -8,13 +8,16 @@ import { useDispatch } from "react-redux";
 import { getAllCars } from "../redux/actions/carsActions";
 import moment from "moment";
 import { CarType } from "./BookingCar";
+import { RootState } from "../redux/store";
+import { CarsStateType } from "../redux/reducers/carsReducer";
+import { AlertStateType } from "../redux/reducers/alertReducer";
 
 const { RangePicker } = DatePicker;
 
 function Home() {
   const dispatch = useDispatch();
-  const { cars } = useSelector((state) => state?.cars);
-  const { loading } = useSelector((state) => state?.alert);
+  const { cars } = useSelector<RootState, CarsStateType>((state) => state?.cars);
+  const { loading } = useSelector<RootState, AlertStateType>((state) => state?.alert);
 
   const [availableCars, setAvailableCars] = useState<CarType[]>([]);
 

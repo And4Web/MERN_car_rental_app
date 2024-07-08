@@ -9,11 +9,13 @@ import Loader from '../components/Loader';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import { RootState } from '../redux/store';
+import { AlertStateType } from '../redux/reducers/alertReducer';
 
 function Login() {
 
   const dispatch = useDispatch();
-  const {loading} = useSelector(state=>state?.alert);
+  const {loading} = useSelector<RootState, AlertStateType>(state=>state?.alert);
 
   useEffect(()=>{
     AOS.init();

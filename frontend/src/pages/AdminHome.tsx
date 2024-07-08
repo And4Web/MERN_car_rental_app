@@ -8,11 +8,14 @@ import { useDispatch } from "react-redux";
 import { getAllCars } from "../redux/actions/carsActions";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { CarType } from "./BookingCar";
+import { RootState } from "../redux/store";
+import { CarsStateType } from "../redux/reducers/carsReducer";
+import { AlertStateType } from "../redux/reducers/alertReducer";
 
 function AdminHome() {
   const dispatch = useDispatch();
-  const { cars } = useSelector((state) => state?.cars);
-  const { loading } = useSelector((state) => state?.alert);
+  const { cars } = useSelector<RootState, CarsStateType>((state) => state?.cars);
+  const { loading } = useSelector<RootState, AlertStateType>((state) => state?.alert);
 
   const [availableCars, setAvailableCars] = useState<CarType[]>([]);
 
